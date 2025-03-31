@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, Time, Boolean, ForeignKey, Date, Text
+from sqlalchemy import Column, Integer, String, Time, Boolean, ForeignKey, Date, Text, DateTime
 from sqlalchemy.orm import relationship
 from db import Base
 
@@ -32,11 +32,10 @@ class Activity(Base):
     category_id = Column(Integer, ForeignKey('category.id'))
     name = Column(String, nullable=False)
     instructions = Column(Text, nullable=False)
-    min_time = Column(Integer, nullable=False)
-    max_time = Column(Integer, nullable=False)
-    prep_time = Column(Integer)
+    min_time = Column(Integer, nullable=False) # in minutes
+    max_time = Column(Integer, nullable=False) # in minutes
+    prep_time = Column(Integer) # in minutes
     freq_target = Column(Integer, nullable=False)
-    ideal_time = Column(Integer, ForeignKey('time_periods.id'))
     constraints = Column(Text)
 
     category = relationship("Category", back_populates="activities")
@@ -72,7 +71,7 @@ class WeeklySchedule(Base):
     slot_id = Column(Integer, ForeignKey('dim_schedule.id'))
     activity_id = Column(Integer, ForeignKey('activities.id'))
     date = Column(Date, nullable=False)
-    time_goal = Column(Integer, nullable=False)
-    actual_time_spent = Column(Integer)
-    assigned = Column(String)
+    time_goal = Column(Integer, nullable=False) # in minutes
+    actual_time_spent = Column(Integer) # in minutes
+    assigned = Column(DateTime)
     completed = Column(Boolean, default=False)
