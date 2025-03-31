@@ -7,6 +7,7 @@ class Category(Base):
     id = Column(Integer, primary_key=True)
     name = Column(String)
     weight = Column(Integer, nullable=False)
+    freq_target = Column(Integer, nullable=False, default=1)
 
     activities = relationship("Activity", back_populates="category")
 
@@ -35,7 +36,6 @@ class Activity(Base):
     min_time = Column(Integer, nullable=False) # in minutes
     max_time = Column(Integer, nullable=False) # in minutes
     prep_time = Column(Integer) # in minutes
-    freq_target = Column(Integer, nullable=False)
     constraints = Column(Text)
 
     category = relationship("Category", back_populates="activities")
